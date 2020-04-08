@@ -289,6 +289,14 @@
           <!-- Article -->
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
+              <!-- Last update of source file -->
+              {% if page and page.meta and not page.meta.is_index %}
+                {% if page.meta.git_revision_date_localized or
+                      page.meta.revision_date
+                %}
+                  {% include "partials/source-file.html" %}
+                {% endif %}
+              {% endif %}
 
               <!-- Content -->
               {% block content %}
@@ -316,14 +324,6 @@
                 <!-- Markdown content -->
                 {{ page.content }}
 
-                <!-- Last update of source file -->
-                {% if page and page.meta %}
-                  {% if page.meta.git_revision_date_localized or
-                        page.meta.revision_date
-                  %}
-                    {% include "partials/source-file.html" %}
-                  {% endif %}
-                {% endif %}
               {% endblock %}
 
               <!-- Disqus integration -->
