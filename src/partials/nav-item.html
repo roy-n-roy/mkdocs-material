@@ -31,7 +31,7 @@
   <li class="{{ class }} md-nav__item--nested">
 
     <!-- Active checkbox expands items contained within nested section -->
-    {% if nav_item.active %}
+    {% if nav_item.active or level > 1 %}
       <input
         class="md-nav__toggle md-toggle"
         data-md-toggle="{{ path }}"
