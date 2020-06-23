@@ -51,7 +51,7 @@
       {% include "partials/toc.html" %}
     {% endif %}
   </li>
-{% else %}
+{% elif not nav_item.title.startswith("_") %}
   <li class="{{ class }}">
     <a href="{{ nav_item.url | url }}" class="md-nav__link">
       {{ nav_item.title }}
