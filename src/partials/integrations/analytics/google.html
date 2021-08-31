@@ -30,8 +30,8 @@
   {% set property = config.extra.analytics.property | d("", true) %}
 {% endif %}
 
-<!-- Google Analytics 4 (G-XXXXXXXXXX) -->
-{% if property.startswith("G-") %}
+<!-- Google Analytics 4 (G-XXXXXXXXXX) and Universal Analytics (UA-XXXXXXXX-X)-->
+{% if property.startswith("G-") or property.startswith("UA-") %}
   <script>
     window.dataLayer = window.dataLayer || []
     function gtag() { dataLayer.push(arguments) }
@@ -54,40 +54,6 @@
   </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ property }}">
   </script>
-
-<!-- Google Analytics (UA-XXXXXXXX-X) -->
-{% elif property.startswith("UA-") %}
-  <script>
-    window.ga = window.ga || function() {
-      (ga.q = ga.q || []).push(arguments)
-    }
-    ga.l = +new Date()
-
-    /* Set up integration and send page view */
-    ga("create", "{{ property }}", "auto")
-    ga("set", "anonymizeIp", true)
-    ga("send", "pageview")
-
-    /* Register virtual event handlers */
-    document.addEventListener("DOMContentLoaded", function() {
-      if (document.forms.search) {
-        var query = document.forms.search.query
-        query.addEventListener("blur", function() {
-          if (this.value) {
-            var path = document.location.pathname;
-            ga("send", "pageview", path + "?q=" + this.value)
-          }
-        })
-      }
-
-      /* Send page view on location change */
-      if (typeof location$ !== "undefined")
-        location$.subscribe(function(url) {
-          ga("send", "pageview", url.pathname)
-        })
-    })
-  </script>
-  <script async src="https://www.google-analytics.com/analytics.js"></script>
 {% endif %}
 
 
