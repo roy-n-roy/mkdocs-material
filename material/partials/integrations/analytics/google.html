@@ -4,7 +4,7 @@
 {% if config.extra.analytics %}
   {% set property = config.extra.analytics.property | d("", true) %}
 {% endif %}
-{% if property.startswith("G-") %}
+{% if property.startswith("G-") or property.startswith("UA-") %}
   <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","{{ property }}"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&gtag("event","search",{search_term:this.value})}),"undefined"!=typeof location$&&location$.subscribe(function(e){gtag("config","{{ property }}",{page_path:e.pathname})})})</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ property }}"></script>
 {% elif property.startswith("UA-") %}

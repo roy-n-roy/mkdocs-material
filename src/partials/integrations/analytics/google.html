@@ -25,8 +25,8 @@
   {% set property = config.extra.analytics.property | d("", true) %}
 {% endif %}
 
-<!-- Google Analytics 4 (G-XXXXXXXXXX) -->
-{% if property.startswith("G-") %}
+<!-- Google Analytics 4 (G-XXXXXXXXXX) and Universal Analytics (UA-XXXXXXXX-X)-->
+{% if property.startswith("G-") or property.startswith("UA-") %}
   <script>
     window.dataLayer = window.dataLayer || []
     function gtag() { dataLayer.push(arguments) }
