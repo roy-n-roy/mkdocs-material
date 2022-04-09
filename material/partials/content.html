@@ -1,6 +1,12 @@
 {#-
   This file was automatically generated - do not edit
 -#}
+{% if page and page.meta and not page.meta.is_index and (
+  page.meta.git_revision_date_localized or
+  page.meta.revision_date
+) %}
+  {% include "partials/source-file.html" %}
+{% endif %}
 {% if page.edit_url %}
   <a href="{{ page.edit_url }}" title="{{ lang.t('edit.link.title') }}" class="md-content__button md-icon">
     {% include ".icons/material/pencil.svg" %}
@@ -13,9 +19,3 @@
   <h1>{{ page.title | d(config.site_name, true)}}</h1>
 {% endif %}
 {{ page.content }}
-{% if page and page.meta and (
-  page.meta.git_revision_date_localized or
-  page.meta.revision_date
-) %}
-  {% include "partials/source-file.html" %}
-{% endif %}
